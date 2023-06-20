@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  api:
+    build: .
+    container_name: api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8000:8000
+
+  api_celery:
+    build: .
+    container_name: api_celery
+    command: celery --app=gestao_emprestimo worker --loglevel=INFO -E
+    volumes:
+      - .:/usr/src/app
+    depends_on: 
+      - api
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: rabbitmq
