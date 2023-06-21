@@ -9,3 +9,10 @@ class PropostaEmprestimo(models.Model):
     valor_emprestimo_solicitado = models.FloatField(validators=[MinValueValidator(0)])
     aprovado = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome_completo
+
+    class Meta:
+        verbose_name = "Proposta Empréstimo"
+        verbose_name_plural = "Propostas Empréstimos"
