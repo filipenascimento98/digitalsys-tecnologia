@@ -51,7 +51,7 @@ Temos o seguinte endpoint nessa API:
 * POST: /api/proposta-emprestimo/
 
 
-# Project structure
+# Estrutura do Projeto
 Breve explicação de alguns elementos da estrutura desse projeto.
 * api: Único app desse projeto.
     * views: Contém os arquivos das views que são chamadas nas rotas definidas.
