@@ -13,9 +13,8 @@ class PropostaEmprestimoView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid(raise_exception=True):
-            print(serializer.validated_data)
             try:
-                avalia_emprestimo.delay()
+                avalia_emprestimo.delay(serializer.validated_data)
             except Exception as e:
                 print(e)
                 return Response(

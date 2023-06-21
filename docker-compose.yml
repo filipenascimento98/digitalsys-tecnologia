@@ -1,6 +1,19 @@
 version: '3.3'
 
 services:
+  db:
+    image: postgis/postgis
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+      - postgresdata:/var/lib/postgresql_con/data
+
   api:
     build: .
     container_name: api
@@ -9,11 +22,17 @@ services:
       - .:/usr/src/app/
     ports:
       - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
 
   api_celery:
     build: .
     container_name: api_celery
     command: celery --app=gestao_emprestimo worker --loglevel=INFO -E
+    env_file:
+      - .env
     volumes:
       - .:/usr/src/app
     depends_on: 
@@ -23,3 +42,10 @@ services:
   rabbitmq:
     image: rabbitmq:3.8-management
     container_name: rabbitmq
+
+volumes:
+  postgresdata:
+
+networks:
+  default:
+    driver: bridge

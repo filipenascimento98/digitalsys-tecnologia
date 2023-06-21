@@ -33,12 +33,14 @@ class RepositoryBase:
         '''
         return self.model.objects.select_related(*select_related).get(**query_params)
 
-    def list(self):
+    def list(self, sort_by_field=None):
         '''
         Realiza a listagem de dados.
             Returns:
             - Lista de objetos.
         '''
+        if sort_by_field:
+            return self.model.objects.all().order_by('-created_at')
         return self.model.objects.all()
     
     def update(self, obj, changed_data={}):
