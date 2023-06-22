@@ -60,6 +60,13 @@ Breve explicação de alguns elementos da estrutura desse projeto.
     * data_access: Camada responsável pelo acesso aos os dados no banco de dados.
     * tests: Diretório que armazena os testes.
 
+# Frontend
+Esse projeto conta com um frontend super simples. Para acessá-lo basta ir até o pasta __front__ e executar um servidor HTTP. É possível fazer isso utilizando o python com o seguinte comando:
+```bash
+python3 -m http.server
+```
+Após isso o servidor irá iniciar e acessando-o o navegador será aberto e as informações do empréstimo podem ser adicionadas.
+ 
 # Testes unitários
 Para executar os testes unitários certifique-se que a aplicação esteja rodando e execute o seguindo comando
 ```bash
