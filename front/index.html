@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Proposta de Empréstimo</title>
+</head>
+<body>
+    <h1>Formulário de Proposta de Empréstimo</h1>
+    <form id="proposalForm">
+        <label for="fullName">Nome completo:</label>
+        <input type="text" id="fullName" required><br><br>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" required><br><br>
+
+        <label for="address">Endereço:</label>
+        <input type="text" id="address" required><br><br>
+
+        <label for="loanAmount">Valor do empréstimo pretendido:</label>
+        <input type="text" id="loanAmount" required><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById("proposalForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o envio do formulário padrão
+
+            var fullName = document.getElementById("fullName").value;
+            var cpf = document.getElementById("cpf").value;
+            var address = document.getElementById("address").value;
+            var loanAmount = document.getElementById("loanAmount").value;
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "nome_completo": fullName,
+                "cpf": cpf,
+                "endereco": address,
+                "valor_emprestimo_solicitado": loanAmount
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://0.0.0.0:8010/api/proposta-emprestimo/", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        });
+    </script>
+</body>
+</html>
